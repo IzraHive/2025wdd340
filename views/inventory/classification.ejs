@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+
+<main>
+  <% if (title) { %>
+    <h1><%= title %></h1>
+  <% } %>
+
+  <% if (grid) { %>
+    <div class="classification-grid">
+      <%- grid %>
+    </div>
+  <% } else { %>
+    <p class="notice">No vehicles found.</p>
+  <% } %>
+</main>
+
+<%- include('../partials/footer') %>

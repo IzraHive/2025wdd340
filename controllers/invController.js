@@ -33,7 +33,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
     nav,
     grid,
   })
-}
+} 
 
 /* ***************************
  *  Trigger intentional error
