@@ -12,9 +12,10 @@
     "motors",
     "mvc"
   ],
-  "author": "Your Name",
+  "author": "Israel Brown",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "connect-flash": "^0.1.1",
     "connect-pg-simple": "^10.0.0",
     "dotenv": "^16.0.3",
