@@ -1,7 +1,4 @@
-/* ************************
- * Constructs the nav HTML unordered list
- ************************** */
-const invModel = require("../models/inventory-model");
+const invModel = require("../models/inventory-model")
 const Util = {};
 
 Util.getNav = async function () {
