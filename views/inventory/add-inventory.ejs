@@ -1,0 +1,144 @@
+<h1>Add New Vehicle</h1>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<form action="/inv/add-inventory" method="post">
+  
+  <label for="classificationList">Classification:</label>
+  <%- classificationList %>
+  
+  <label for="inv_make">Make:
+    <input 
+      type="text" 
+      id="inv_make" 
+      name="inv_make" 
+      value="<%= locals.inv_make || '' %>" 
+      required 
+      minlength="3">
+  </label>
+  
+  <label for="inv_model">Model:
+    <input 
+      type="text" 
+      id="inv_model" 
+      name="inv_model" 
+      value="<%= locals.inv_model || '' %>" 
+      required 
+      minlength="3">
+  </label>
+  
+  <label for="inv_year">Year:
+    <input 
+      type="number" 
+      id="inv_year" 
+      name="inv_year" 
+      value="<%= locals.inv_year || '' %>" 
+      required 
+      min="1900" 
+      max="2099">
+  </label>
+  
+  <label for="inv_description">Description:
+    <textarea 
+      id="inv_description" 
+      name="inv_description" 
+      required><%= locals.inv_description || '' %></textarea>
+  </label>
+  
+  <label for="inv_image">Image Path:
+    <input 
+      type="text" 
+      id="inv_image" 
+      name="inv_image" 
+      value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>" 
+      required>
+  </label>
+  
+  <label for="inv_thumbnail">Thumbnail Path:
+    <input 
+      type="text" 
+      id="inv_thumbnail" 
+      name="inv_thumbnail" 
+      value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>" 
+      required>
+  </label>
+  
+  <label for="inv_price">Price:
+    <input 
+      type="number" 
+      id="inv_price" 
+      name="inv_price" 
+      value="<%= locals.inv_price || '' %>" 
+      required 
+      min="0" 
+      step="0.01">
+  </label>
+  
+  <label for="inv_miles">Miles:
+    <input 
+      type="number" 
+      id="inv_miles" 
+      name="inv_miles" 
+      value="<%= locals.inv_miles || '' %>" 
+      required 
+      min="0" 
+      step="1">
+  </label>
+  
+  <label for="inv_color">Color:
+    <input 
+      type="text" 
+      id="inv_color" 
+      name="inv_color" 
+      value="<%= locals.inv_color || '' %>" 
+      required>
+  </label>
+  
+  <button type="submit">Add Vehicle</button>
+</form>
+
+<script>
+  // Client-side validation
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const year = document.getElementById('inv_year').value;
+    const price = document.getElementById('inv_price').value;
+    const miles = document.getElementById('inv_miles').value;
+    const classification = document.getElementById('classificationList').value;
+    
+    // Validate year is 4 digits
+    if (year.length !== 4) {
+      e.preventDefault();
+      alert('Year must be a 4-digit number.');
+      return false;
+    }
+    
+    // Validate price is positive
+    if (parseFloat(price) < 0) {
+      e.preventDefault();
+      alert('Price must be a positive number.');
+      return false;
+    }
+    
+    // Validate miles is positive
+    if (parseInt(miles) < 0) {
+      e.preventDefault();
+      alert('Miles must be a positive number.');
+      return false;
+    }
+    
+    // Validate classification is selected
+    if (classification === '') {
+      e.preventDefault();
+      alert('Please select a classification.');
+      return false;
+    }
+  });
+</script>

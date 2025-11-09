@@ -1,0 +1,39 @@
+<h1>Add New Classification</h1>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<form action="/inv/add-classification" method="post">
+  <label for="classification_name">Classification Name:</label>
+  <p>Name cannot contain spaces or special characters.</p>
+  <input 
+    type="text" 
+    name="classification_name" 
+    id="classification_name"
+    pattern="^[A-Za-z0-9]+$"
+    value="<%= locals.classification_name || '' %>"
+    required>
+  
+  <button type="submit">Add Classification</button>
+</form>
+
+<script>
+  // Client-side validation
+  const form = document.querySelector('form');
+  const input = document.getElementById('classification_name');
+  
+  form.addEventListener('submit', function(e) {
+    const value = input.value;
+    if (!/^[A-Za-z0-9]+$/.test(value)) {
+      e.preventDefault();
+      alert('Classification name cannot contain spaces or special characters');
+    }
+  });
+</script>

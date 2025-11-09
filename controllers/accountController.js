@@ -11,6 +11,7 @@ async function buildLogin(req, res, next) {
     res.render("account/login", {
       title: "Login",
       nav,
+      errors: null,
       messages: req.flash('info'),
     });
   } catch (error) {
@@ -28,6 +29,7 @@ async function buildRegister(req, res, next) {
     res.render("account/register", {
       title: "Register",
       nav,
+      errors: null,
       messages: req.flash('info'),
       account_firstname: '',
       account_lastname: '',
@@ -60,6 +62,7 @@ async function registerAccount(req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
+      errors: null,
       messages: req.flash("notice"),
     })
   } else {
@@ -67,6 +70,7 @@ async function registerAccount(req, res) {
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
+      errors: null,
       messages: req.flash("notice"),
     })
   }
