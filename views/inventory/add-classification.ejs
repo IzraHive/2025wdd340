@@ -9,21 +9,28 @@
   </ul>
 <% } %>
 
-<form action="/inv/add-classification" method="post">
+<form action="/inv/add-classification" method="post" id="classificationForm">
   <label for="classification_name">Classification Name:</label>
   <p>Name cannot contain spaces or special characters.</p>
   <input type="text" name="classification_name" id="classification_name"
     pattern="^[A-Za-z0-9]+$" required>
+  
+  <!-- Inline error container -->
+  <div id="classificationError" class="error-message" style="color:red;"></div>
+  
   <button type="submit">Add Classification</button>
 </form>
 
 <script>
-  const form = document.querySelector('form')
-  const input = document.getElementById('classification_name')
-  form.addEventListener('submit', e => {
-    if (!/^[A-Za-z0-9]+$/.test(input.value)) {
-      e.preventDefault()
-      alert('Classification name cannot contain spaces or special characters')
-    }
-  })
+const form1 = document.getElementById('classificationForm');
+const input1 = document.getElementById('classification_name');
+const errorDiv1 = document.getElementById('classificationError');
+
+form1.addEventListener('submit', e => {
+  errorDiv1.textContent = ''; // Clear previous errors
+  if (!/^[A-Za-z0-9]+$/.test(input1.value)) {
+    e.preventDefault();
+    errorDiv1.textContent = 'Classification name cannot contain spaces or special characters.';
+  }
+});
 </script>

@@ -10,7 +10,7 @@
   </ul>
 <% } %>
 
-<form action="/inv/add-inventory" method="post">
+<form action="/inv/add-inventory" method="post" id="inventoryForm">
   
   <label for="classificationList">Classification:</label>
   <%- classificationList %>
@@ -102,43 +102,40 @@
       required>
   </label>
   
+  <!-- Inline error messages -->
+  <div id="inventoryError" class="error-message" style="color:red; margin-top:10px;"></div>
+  
   <button type="submit">Add Vehicle</button>
 </form>
 
 <script>
-  // Client-side validation
-  document.querySelector('form').addEventListener('submit', function(e) {
-    const year = document.getElementById('inv_year').value;
-    const price = document.getElementById('inv_price').value;
-    const miles = document.getElementById('inv_miles').value;
-    const classification = document.getElementById('classificationList').value;
-    
-    // Validate year is 4 digits
-    if (year.length !== 4) {
-      e.preventDefault();
-      alert('Year must be a 4-digit number.');
-      return false;
-    }
-    
-    // Validate price is positive
-    if (parseFloat(price) < 0) {
-      e.preventDefault();
-      alert('Price must be a positive number.');
-      return false;
-    }
-    
-    // Validate miles is positive
-    if (parseInt(miles) < 0) {
-      e.preventDefault();
-      alert('Miles must be a positive number.');
-      return false;
-    }
-    
-    // Validate classification is selected
-    if (classification === '') {
-      e.preventDefault();
-      alert('Please select a classification.');
-      return false;
-    }
-  });
+const form = document.getElementById('inventoryForm');
+const yearInput = document.getElementById('inv_year');
+const priceInput = document.getElementById('inv_price');
+const milesInput = document.getElementById('inv_miles');
+const classificationInput = document.getElementById('classificationList');
+const errorDiv = document.getElementById('inventoryError');
+
+form.addEventListener('submit', e => {
+  errorDiv.textContent = ''; // clear previous errors
+  const messages = [];
+
+  if (yearInput.value.length !== 4) {
+    messages.push('Year must be a 4-digit number.');
+  }
+  if (parseFloat(priceInput.value) < 0) {
+    messages.push('Price must be a positive number.');
+  }
+  if (parseInt(milesInput.value) < 0) {
+    messages.push('Miles must be a positive number.');
+  }
+  if (!classificationInput.value) {
+    messages.push('Please select a classification.');
+  }
+
+  if (messages.length > 0) {
+    e.preventDefault();
+    errorDiv.innerHTML = messages.join('<br>');
+  }
+});
 </script>
